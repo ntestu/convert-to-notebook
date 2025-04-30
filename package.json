@@ -1,0 +1,87 @@
+{
+  "name": "convert-to-notebook",
+  "displayName": "Convert to Notebook",
+  "description": "Convert files to notebooks.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ntestu/convert-to-notebook.git"
+  },
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Notebooks"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Convert to Notebook",
+      "properties": {
+        "convertToNotebook.executable": {
+          "type": "string",
+          "description": "Path to the executable to run. The file to convert is passed via stdin.",
+          "order": 0
+        },
+        "convertToNotebook.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to pass to the executable.",
+          "order": 1
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "convertToNotebook.convertToNotebook",
+        "title": "Convert to notebook",
+        "icon": "$(notebook-template)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "convertToNotebook.convertToNotebook",
+          "group": "3_open",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "package-vsix": "pnpm run package && vsce package --no-dependencies",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.99.0",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.3.2",
+    "esbuild": "^0.25.1",
+    "eslint": "^9.23.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  }
+}

@@ -1,0 +1,45 @@
+{
+    "$comment": "Subset of https://github.com/jupyter/nbformat/blob/main/nbformat/v4/nbformat.v4.schema.json matching what is supported by the extension",
+    "type": "object",
+    "required": [
+        "nbformat",
+        "nbformat_minor",
+        "cells"
+    ],
+    "properties": {
+        "nbformat": {
+            "enum": [4]
+        },
+        "nbformat_minor": {
+            "type": "integer"
+        },
+        "cells": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "cell_type",
+                    "source"
+                ],
+                "properties": {
+                    "cell_type": {
+                        "enum": ["markdown", "code"]
+                    },
+                    "source": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
