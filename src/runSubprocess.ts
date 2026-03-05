@@ -12,6 +12,7 @@ export type SubprocessResult = {
 export async function runSubprocess(
     executable: string,
     args: string[],
+    workingDirectory: string,
     stdin: string = "",
     token?: vscode.CancellationToken,
 ): Promise<SubprocessResult> {
@@ -19,7 +20,9 @@ export async function runSubprocess(
 
     try {
         const result = await new Promise<SubprocessResult>((resolve, reject) => {
-            const child = spawn(executable, args, {});
+            const child = spawn(executable, args, {
+                cwd: workingDirectory,
+            });
             const stdout: string[] = [];
             const stderr: string[] = [];
 

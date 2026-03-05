@@ -32,6 +32,12 @@
           },
           "description": "Arguments to pass to the executable.",
           "order": 1
+        },
+        "convertToNotebook.workingDirectory": {
+          "type": "string",
+          "title": "Working Directory",
+          "description": "Directory in which to execute the command.",
+          "order": 2
         }
       }
     },

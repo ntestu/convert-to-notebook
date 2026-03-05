@@ -25,6 +25,8 @@ export function activate(context: vscode.ExtensionContext) {
         try {
             const executable = config.executable;
             const args = config.args;
+            const workingDirectory = config.workingDirectory;
+
             subprocessResults = await vscode.window.withProgress(
                 {
                     location: vscode.ProgressLocation.Notification,
@@ -32,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
                     cancellable: true,
                 },
                 async (_, token) => {
-                    return runSubprocess(executable, args, editor.document.getText(), token);
+                    return runSubprocess(executable, args, workingDirectory, editor.document.getText(), token);
                 }
             );
         } catch (error) {

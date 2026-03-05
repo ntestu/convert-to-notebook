@@ -18,4 +18,8 @@ export class Config {
     public get args(): string[] {
         return this.configuration.get('args', []);
     }
+
+    public get workingDirectory(): string {
+        return this.configuration.get('workingDirectory', '.');
+    }
 }
